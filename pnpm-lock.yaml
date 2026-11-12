@@ -28,8 +28,8 @@ importers:
         specifier: ^14.1.1
         version: 14.1.1
       luna:
-        specifier: github:Inrixia/TidaLuna#81369c7
-        version: https://codeload.github.com/Inrixia/TidaLuna/tar.gz/81369c7
+        specifier: github:Inrixia/TidaLuna#81369c7032c9fe37d2ae37c514c355accb86377b
+        version: https://codeload.github.com/Inrixia/TidaLuna/tar.gz/81369c7032c9fe37d2ae37c514c355accb86377b
       oby:
         specifier: ^15.1.2
         version: 15.1.2
@@ -460,8 +460,8 @@ packages:
     resolution: {integrity: sha512-QIXZUBJUx+2zHUdQujWejBkcD9+cs94tLn0+YL8UrCh+D5sCXZ4c7LaEH48pNwRY3MLDgqUFyhlCyjJPf1WP0A==}
     engines: {node: 20 || >=22}
 
-  luna@https://codeload.github.com/Inrixia/TidaLuna/tar.gz/81369c7:
-    resolution: {tarball: https://codeload.github.com/Inrixia/TidaLuna/tar.gz/81369c7}
+  luna@https://codeload.github.com/Inrixia/TidaLuna/tar.gz/81369c7032c9fe37d2ae37c514c355accb86377b:
+    resolution: {gitHosted: true, integrity: sha512-f65zflDqkjJ41NrofDYr29BedisQW56jYwqveg50zpeOZa1deWsatz/PTPk0Bz9fKs79lFKWawj1gCaDF5A0PQ==, tarball: https://codeload.github.com/Inrixia/TidaLuna/tar.gz/81369c7032c9fe37d2ae37c514c355accb86377b}
     version: 1.5.1-beta
 
   math-intrinsics@1.1.0:
@@ -1008,7 +1008,7 @@ snapshots:
 
   lru-cache@11.1.0: {}
 
-  luna@https://codeload.github.com/Inrixia/TidaLuna/tar.gz/81369c7:
+  luna@https://codeload.github.com/Inrixia/TidaLuna/tar.gz/81369c7032c9fe37d2ae37c514c355accb86377b:
     dependencies:
       '@inrixia/helpers': 3.20.0
       '@types/clean-css': 4.2.11

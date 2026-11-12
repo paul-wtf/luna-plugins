@@ -17,7 +17,7 @@
 		"@types/react-dom": "^19.1.5",
 		"concurrently": "^9.2.1",
 		"http-server": "^14.1.1",
-		"luna": "github:Inrixia/TidaLuna#81369c7",
+		"luna": "github:Inrixia/TidaLuna#81369c7032c9fe37d2ae37c514c355accb86377b",
 		"oby": "^15.1.2",
 		"rimraf": "^6.1.3",
 		"tsx": "^4.19.4",
