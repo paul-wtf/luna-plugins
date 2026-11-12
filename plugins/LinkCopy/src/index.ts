@@ -9,7 +9,16 @@ export const storage = await ReactiveStore.getPluginStorage("LinkCopy", {
 });
 
 const DEFAULT_BACKEND = "https://linkhop.paul.wtf";
-const TARGETS = "spotify,deezer,youtube_music";
+
+export const PLATFORMS = {
+    spotify: 'Spotify',
+    deezer: 'Deezer',
+    youtube_music: 'YouTube Music',
+    apple_music: 'Apple Music',
+} as const;
+export type Platform = keyof typeof PLATFORMS;
+
+const TARGETS = Object.keys(PLATFORMS).join(",");
 
 type TargetResult = { status: string; url: string | null };
 type Targets = Record<string, TargetResult | undefined>;
@@ -99,7 +108,8 @@ ContextMenu.onMediaItem(unloads, async ({ mediaCollection, contextMenu }) => {
     const trackId = String(id);
     const url = `https://listen.tidal.com/track/${trackId}`;
 
-    const handleClick = async (platform: 'spotify' | 'deezer' | 'youtube_music', label: string) => {
+    const handleClick = async (platform: Platform) => {
+        const label = PLATFORMS[platform];
         const links = await getLinks(url, trackId);
         const link = links?.[platform]?.url;
         if (link) copyToClipboard(link, label);
@@ -110,33 +120,26 @@ ContextMenu.onMediaItem(unloads, async ({ mediaCollection, contextMenu }) => {
     const originalLi = shareBtn?.closest('li');
     const parentUl = originalLi?.parentElement;
 
-    if (originalLi && parentUl) {
-        parentUl.appendChild(createClonedButton(originalLi as HTMLElement, "Copy Spotify Link", () => handleClick('spotify', 'Spotify')));
-        parentUl.appendChild(createClonedButton(originalLi as HTMLElement, "Copy Deezer Link", () => handleClick('deezer', 'Deezer')));
-        parentUl.appendChild(createClonedButton(originalLi as HTMLElement, "Copy YouTube Music Link", () => handleClick('youtube_music', 'YouTube Music')));
-    } else {
-        contextMenu.addButton("Copy Spotify Link", () => handleClick('spotify', 'Spotify'));
-        contextMenu.addButton("Copy Deezer Link", () => handleClick('deezer', 'Deezer'));
-        contextMenu.addButton("Copy YouTube Music Link", () => handleClick('youtube_music', 'YouTube Music'));
+    for (const platform of Object.keys(PLATFORMS) as Platform[]) {
+        const text = `Copy ${PLATFORMS[platform]} Link`;
+        if (originalLi && parentUl) {
+            parentUl.appendChild(createClonedButton(originalLi as HTMLElement, text, () => handleClick(platform)));
+        } else {
+            contextMenu.addButton(text, () => handleClick(platform));
+        }
     }
 });
 
 export { Settings } from "./Settings";
 
-const PLATFORM_LABELS: Record<'spotify' | 'deezer' | 'youtube_music', string> = {
-    spotify: 'Spotify',
-    deezer: 'Deezer',
-    youtube_music: 'YouTube Music',
-};
-
-export async function copyCurrentLink(platform: 'spotify' | 'deezer' | 'youtube_music') {
+export async function copyCurrentLink(platform: Platform) {
     const mediaItem = await MediaItem.fromPlaybackContext();
     if (!mediaItem) return;
     const id = String(mediaItem.id);
     const url = `https://listen.tidal.com/track/${id}`;
     const links = await getLinks(url, id);
     const link = links?.[platform]?.url;
-    const label = PLATFORM_LABELS[platform];
+    const label = PLATFORMS[platform];
     if (link) copyToClipboard(link, label);
     else notify(`${label} link not found.`, "WARN");
 }

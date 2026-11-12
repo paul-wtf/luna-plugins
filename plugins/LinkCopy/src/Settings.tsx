@@ -1,6 +1,6 @@
 import React from "react";
 import { LunaSettings, LunaButtonSetting, LunaTextSetting } from "@luna/ui";
-import { copyCurrentLink, storage } from ".";
+import { copyCurrentLink, PLATFORMS, storage, type Platform } from ".";
 
 export const Settings = () => {
 	const [backendUrl, setBackendUrl] = React.useState(storage.backendUrl);
@@ -12,21 +12,14 @@ export const Settings = () => {
 				value={backendUrl}
 				onChange={(e) => setBackendUrl((storage.backendUrl = e.target.value))}
 			/>
-			<LunaButtonSetting
-				title="Copy Spotify Link"
-				desc="Copy the Spotify link for the currently playing track"
-				onClick={() => copyCurrentLink('spotify')}
-			/>
-			<LunaButtonSetting
-				title="Copy Deezer Link"
-				desc="Copy the Deezer link for the currently playing track"
-				onClick={() => copyCurrentLink('deezer')}
-			/>
-			<LunaButtonSetting
-				title="Copy YouTube Music Link"
-				desc="Copy the YouTube Music link for the currently playing track"
-				onClick={() => copyCurrentLink('youtube_music')}
-			/>
+			{(Object.keys(PLATFORMS) as Platform[]).map((platform) => (
+				<LunaButtonSetting
+					key={platform}
+					title={`Copy ${PLATFORMS[platform]} Link`}
+					desc={`Copy the ${PLATFORMS[platform]} link for the currently playing track`}
+					onClick={() => copyCurrentLink(platform)}
+				/>
+			))}
 		</LunaSettings>
 	);
 };
