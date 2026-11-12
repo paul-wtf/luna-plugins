@@ -5,7 +5,7 @@ Custom plugins for **[Tidal Luna](https://github.com/Inrixia/TidaLuna)**.
 ## Plugins
 
 ### 1. Link Copy
-Easily copy Spotify and YouTube links for any track directly from the context menu or share menu.
+Easily copy Spotify, Deezer, YouTube Music and Apple Music links for any track directly from the context menu or share menu. The links come from [linkhop](https://github.com/paul-wtf/linkhop).
 
 ## Getting Started
 
